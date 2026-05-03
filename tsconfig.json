@@ -1,5 +1,15 @@
 {
   "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+
+    "module": "Node16",
+    "moduleResolution": "node16",
+    "types": ["node"],
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
     "strict": true,
     "allowUnusedLabels": false,
     "allowUnreachableCode": false,
@@ -10,13 +20,11 @@
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noUnusedParameters": false,
 
     "isolatedModules": true,
 
     "esModuleInterop": true,
     "skipLibCheck": true
-  },
-  "$schema": "https://www.schemastore.org/tsconfig",
-  "_version": "2.0.0"
+  }
 }
