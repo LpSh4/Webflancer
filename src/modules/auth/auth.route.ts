@@ -1,11 +1,12 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { registerSchema } from "./schemas/register.schema";
-import { CreateUserData, LoginData } from "../user/user.types";
+import { CreateUserData } from "../user/user.types";
 import { loginSchema } from "./schemas/login.schema";
 import { Role } from "../../entities/user.entity";
 import { LoginTokens } from "./auth.service";
 import { refreshSchema } from "./schemas/refresh.schema";
 import { logoutSchema } from "./schemas/logout.schema";
+import { LoginData } from "./auth.types";
 
 export type SafeUser = {
   id: string;

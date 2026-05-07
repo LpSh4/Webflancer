@@ -15,4 +15,22 @@ export class UserService {
     if (!updated) throw new NotFoundError("User not found");
     return updated;
   }
+
+  async updateEmail(userId: string, email: string): Promise<User> {
+    const updated = await this.userRepo.changeEmail(userId, email);
+    if (!updated) throw new NotFoundError("User not found");
+    return updated;
+  }
+
+  async updateProfilePicture(
+    userId: string,
+    profilePicture: string,
+  ): Promise<User> {
+    const updated = await this.userRepo.changeProfilePicture(
+      userId,
+      profilePicture,
+    );
+    if (!updated) throw new NotFoundError("User not found");
+    return updated;
+  }
 }

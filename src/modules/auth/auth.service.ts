@@ -1,11 +1,7 @@
 import { UserRepository } from "../user/user.repository";
 import { HashService } from "./hash.service";
 import { EntityManager } from "typeorm";
-import {
-  CreateUserData,
-  LoginData,
-  RefreshTokenData,
-} from "../user/user.types";
+import { CreateUserData } from "../user/user.types";
 import { Role, User } from "../../entities/user.entity";
 import {
   ConflictError,
@@ -16,6 +12,7 @@ import {
 import { JwtService } from "./jwt.service";
 import { RefreshTokenRepository } from "./refresh-token.repository";
 import ms from "ms";
+import { LoginData, RefreshTokenData } from "./auth.types";
 
 export type SafeUser = {
   id: string;

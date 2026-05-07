@@ -4,7 +4,7 @@ import { CreateUserData, UpdateUserData } from "./user.types";
 import { Client } from "../../entities/user.entity.client";
 import { Developer } from "../../entities/user.entity.developer";
 import { Partial } from "@sinclair/typebox";
-import { RequestError } from "../../errors/errors";
+import { ConflictError, RequestError } from "../../errors/errors";
 
 export class UserRepository {
   constructor(private em: EntityManager) {}
@@ -73,7 +73,6 @@ export class UserRepository {
     ] as const;
     const COMMON_FIELDS = [
       "login",
-      "email",
       "phoneNumber",
       "displayedName",
       "name",
@@ -104,7 +103,40 @@ export class UserRepository {
 
     Object.assign(user, sanitizedData);
 
-    return await this.em.save(user);
+    return await manager.save(user);
+  }
+
+  async changeEmail(
+    id: string,
+    email: string,
+    em?: EntityManager,
+  ): Promise<User | null> {
+    const manager = em ?? this.em;
+
+    const existingUser = await this.findByEmail(email, manager);
+
+    if (existingUser && existingUser.id !== id) {
+      throw new ConflictError("This email is already in use");
+    }
+
+    const user = await this.findById(id, manager);
+    if (!user) return null;
+
+    user.email = email;
+    return await manager.save(user);
+  }
+
+  async changeProfilePicture(
+    id: string,
+    profilePicture: string,
+    em?: EntityManager,
+  ): Promise<User | null> {
+    const manager = em ?? this.em;
+    const user = await this.findById(id, manager);
+    if (!user) return null;
+
+    user.profilePicture = profilePicture;
+    return await manager.save(user);
   }
 
   async findById(id: string, em?: EntityManager): Promise<User | null> {

@@ -13,7 +13,6 @@ export interface UpdateUserData {
   id: string;
   role?: Role;
   login?: string;
-  email?: string;
   phoneNumber?: string;
   name?: string;
   surname?: string;
@@ -30,7 +29,6 @@ export interface UpdateUserData {
 
 export interface BaseUpdate {
   login?: string;
-  email?: string;
   phoneNumber?: string;
   password?: string;
   name?: string;
@@ -52,15 +50,12 @@ export interface DeveloperUpdate extends BaseUpdate {
   avgHourlyRate?: number;
 }
 
-export interface LoginData {
-  login: string;
-  password: string;
-  ipAddress?: string | null;
-  userAgent?: string | null;
+export interface UpdateEmailData {
+  id: string;
+  email: string;
 }
 
-export interface RefreshTokenData {
-  oldRefreshToken: string;
-  ipAddress?: string | null;
-  userAgent?: string | null;
+export interface UpdateProfilePictureData {
+  id: string;
+  profilePicture: string;
 }

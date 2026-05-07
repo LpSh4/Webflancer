@@ -1,7 +1,16 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
 import { authenticate } from "../auth/auth.middleware";
-import { UpdateUserData } from "./user.types";
+import {
+  UpdateEmailData,
+  UpdateProfilePictureData,
+  UpdateUserData,
+} from "./user.types";
 import { Role } from "../../entities/user.entity";
+import {
+  updateAvatarSchema,
+  updateEmailSchema,
+  updateUserSchema,
+} from "./schemas/user.schema";
 
 export async function userRoutes(fastify: FastifyInstance) {
   const resolve = (req: FastifyRequest<any>) =>
@@ -11,12 +20,34 @@ export async function userRoutes(fastify: FastifyInstance) {
     Body: UpdateUserData;
   }>(
     "/profile",
-    { preHandler: [authenticate] },
+    { preHandler: [authenticate], schema: updateUserSchema },
     async (req, res): Promise<never> => {
       req.body.role = req.user.role as Role;
       req.body.id = req.user.id;
 
       return resolve(req).updateProfile(req, res);
+    },
+  );
+
+  fastify.patch<{
+    Body: UpdateProfilePictureData;
+  }>(
+    "/avatar",
+    { preHandler: [authenticate], schema: updateAvatarSchema },
+    async (req, res): Promise<never> => {
+      req.body.id = req.user.id;
+
+      return resolve(req).updateProfilePicture(req, res);
+    },
+  );
+
+  fastify.patch<{ Body: UpdateEmailData }>(
+    "/email",
+    { preHandler: [authenticate], schema: updateEmailSchema },
+    async (req, res): Promise<never> => {
+      req.body.id = req.user.id;
+
+      return resolve(req).updateEmail(req, res);
     },
   );
 }

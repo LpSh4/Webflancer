@@ -1,11 +1,12 @@
 import { AuthService, LoginTokens } from "./auth.service";
 import { FastifyReply, FastifyRequest } from "fastify";
-import { CreateUserData, LoginData } from "../user/user.types";
+import { CreateUserData } from "../user/user.types";
 // @ts-ignore
 import cookie from "@fastify/cookie";
 import { SafeUser } from "./auth.route";
 import config from "../../config";
 import { UnauthorizedError } from "../../errors/errors";
+import { LoginData } from "./auth.types";
 
 export class AuthController {
   constructor(private authService: AuthService) {}
