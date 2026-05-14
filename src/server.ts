@@ -7,6 +7,9 @@ import { DataSource } from "typeorm";
 import { initORM } from "./infrastructure";
 import { AuthRoutes } from "./modules/auth/auth.route";
 import { userRoutes } from "./modules/user/user.route";
+import { loggerRoutes } from "./modules/log/logger.route";
+import { commissionRoutes } from "./modules/commission/commission.route";
+import { bidRoutes } from "./modules/bid/bid.route";
 // import ioPlugin from "./plugins/socket";
 
 interface FastifyOptions {
@@ -65,6 +68,18 @@ class Server {
 
     await this.fastify.register(userRoutes, {
       prefix: `${config.apiPrefix}/users`,
+    });
+
+    await this.fastify.register(loggerRoutes, {
+      prefix: `${config.apiPrefix}/logs`,
+    });
+
+    await this.fastify.register(commissionRoutes, {
+      prefix: `${config.apiPrefix}/commissions`,
+    });
+
+    await this.fastify.register(bidRoutes, {
+      prefix: `${config.apiPrefix}/bids`,
     });
   }
 

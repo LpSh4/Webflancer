@@ -1,7 +1,7 @@
 import { Column, Entity, OneToMany, TableInheritance } from "typeorm";
 import type { Relation } from "typeorm";
 import { BaseEntity } from "./base.entity";
-import { UserLog } from "./user.entity.log";
+import { UserLog } from "./log.user.entity";
 import { RefreshToken } from "./refresh-token.entity";
 
 export enum Role {
@@ -62,7 +62,7 @@ export class User extends BaseEntity {
   })
   averageRating?: number;
 
-  @OneToMany(() => UserLog, (userLog) => userLog.userId, {
+  @OneToMany(() => UserLog, (userLog) => userLog.user, {
     onDelete: "CASCADE",
   })
   logs?: Relation<UserLog[]>;

@@ -5,6 +5,9 @@ import { asFunction, asValue, InjectionMode } from "awilix";
 import config from "../config";
 import { AuthContainer } from "../modules/auth/auth.container";
 import { UserContainer } from "../modules/user/user.container";
+import { LoggerContainer } from "../modules/log/logger.container";
+import { CommissionContainer } from "../modules/commission/commission.container";
+import { BidContainer } from "../modules/bid/bid.container";
 
 const awilixPlugin: FastifyPluginAsync = async (fastify: FastifyInstance) => {
   await fastify.register(fastifyAwilixPlugin, {
@@ -19,6 +22,9 @@ const awilixPlugin: FastifyPluginAsync = async (fastify: FastifyInstance) => {
     config: asValue(config),
     ...AuthContainer,
     ...UserContainer,
+    ...LoggerContainer,
+    ...CommissionContainer,
+    ...BidContainer,
   });
   // fastify.addHook("onRequest", (req: FastifyRequest, res: FastifyReply) => {});
 };

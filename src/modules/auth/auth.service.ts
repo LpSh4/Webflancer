@@ -5,7 +5,6 @@ import { CreateUserData } from "../user/user.types";
 import { Role, User } from "../../entities/user.entity";
 import {
   ConflictError,
-  NotFoundError,
   RequestError,
   UnauthorizedError,
 } from "../../errors/errors";
@@ -67,13 +66,13 @@ export class AuthService {
 
   async login(data: LoginData): Promise<LoginTokens> {
     const user = await this.userRepo.findByLogin(data.login, this.em);
-    if (!user) throw new NotFoundError();
+    if (!user) throw new UnauthorizedError("Wrong credentials");
 
     const valid = await this.hashService.checkPassword(
       data.password,
       user.password,
     );
-    if (!valid) throw new UnauthorizedError();
+    if (!valid) throw new UnauthorizedError("Wrong credentials");
 
     const payload = {
       id: user.id,
