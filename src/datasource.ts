@@ -10,7 +10,7 @@ export default new DataSource({
   database: config.db.database,
 
   entities: ["dist/entities/*.js"],
-  migrations: ["dist/migrations/*.js"],
+  migrations: [__dirname + "/migrations/*.{js,ts}"],
 
   synchronize: false,
   migrationsRun: false,

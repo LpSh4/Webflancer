@@ -10,6 +10,7 @@ import { userRoutes } from "./modules/user/user.route";
 import { loggerRoutes } from "./modules/log/logger.route";
 import { commissionRoutes } from "./modules/commission/commission.route";
 import { bidRoutes } from "./modules/bid/bid.route";
+import { proposalRoutes } from "./modules/proposal/proposal.route";
 // import ioPlugin from "./plugins/socket";
 
 interface FastifyOptions {
@@ -76,6 +77,10 @@ class Server {
 
     await this.fastify.register(commissionRoutes, {
       prefix: `${config.apiPrefix}/commissions`,
+    });
+
+    await this.fastify.register(proposalRoutes, {
+      prefix: `${config.apiPrefix}/proposals`,
     });
 
     await this.fastify.register(bidRoutes, {
