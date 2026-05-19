@@ -10,7 +10,7 @@ export const CreateProposalSchema = {
       id: { type: "string", format: "uuid" },
       workStatus: {
         type: "string",
-        values: Object.values(CommissionWorkStatus),
+        enum: Object.values(CommissionWorkStatus),
       },
     },
     required: ["workStatus", "id"],
@@ -24,7 +24,7 @@ export const ChangeProposalStatusSchema = {
       id: { type: "string", format: "uuid" },
       status: {
         type: "string",
-        values: Object.values(ProposalStatus),
+        enum: Object.values(ProposalStatus),
       },
     },
     required: ["status", "id"],

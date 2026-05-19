@@ -76,6 +76,9 @@ export class BidRepository {
       { bidStatus: BidStatus.REJECTED },
     );
 
+    commission.developerId = bid.developerId;
+    await manager.save(commission);
+
     return savedBid;
   }
 
@@ -94,6 +97,12 @@ export class BidRepository {
       case BidStatus.CREATED:
         return manager.softDelete(Bid, id);
       case BidStatus.ACCEPTED:
+        await manager.findOne(Bid, {
+          where: {
+            id: id,
+          },
+        });
+
         await manager.update(
           Bid,
           {
